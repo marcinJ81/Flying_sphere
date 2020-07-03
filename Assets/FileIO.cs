@@ -11,9 +11,9 @@ public class FileIO : IFileIO
 {
     public void writeFileToDisc(string description)
     {
-        string pathToSave = @"D:\UnityProject\BezierTest2\Assets\file1.log"; //Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+       // string pathToSave = @"D:\UnityProject\BezierTest2\Assets\file1.log"; //Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-        File.AppendAllText(pathToSave,description + ";" );
+      //  File.AppendAllText(pathToSave,description + ";" );
     }
 
 }

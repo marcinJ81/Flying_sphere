@@ -16,8 +16,7 @@ public class Target_script : MonoBehaviour
     private void Awake()
     {
         //changeAngleVelocity = new ChangeValueVelocityAndAngle();
-        strategy = new StrategyForChangeAngleAndVelocity();
-       
+        strategy = new StrategyForChangeAngleAndVelocity(); 
     }
     void Start()
     {
@@ -44,8 +43,9 @@ public class Target_script : MonoBehaviour
 
     private void ShowSpeedDistanceMassAboutBall(TextMesh textmesh)
     {
-        textmesh.text = "Angle : " + angle.ToString("n2");
-        textmesh.text += "\nVelocity : " + velocity.ToString("n2");
+        textmesh.text = "left decreases(arrow) right increases; Angle : " + angle.ToString("n2");
+        textmesh.text += "\ndown decreases(arrow) up increases; Velocity : " + velocity.ToString("n2");
     }
+     
 
 }
