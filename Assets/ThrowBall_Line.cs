@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public enum TypeArcPointCalcuate
+{
+    ZeroYZ,
+    XYZ,
+    XYZero
+}
 /// <summary>
 /// https://www.youtube.com/watch?v=iLlWirdxass
 /// https://en.wikipedia.org/wiki/Projectile_motion
@@ -54,9 +60,11 @@ public class ThrowBall_Line : MonoBehaviour
     private void RenderArc(float velocity, float angle)
     {
         lr.positionCount = resolution + 1;
-        lr.SetPositions(CalculateArcArray(velocity,angle));
-        DrawHelpLine(CalculateArcArray(velocity, angle).Last());
-        Debug.Log("max distance z point = " + CalculateArcArray(velocity, angle).LastOrDefault().z.ToString("n2"));
+        lr.SetPositions(CalculateArcArray(velocity,angle,TypeArcPointCalcuate.ZeroYZ));
+        DrawHelpLine(CalculateArcArray(velocity, angle, TypeArcPointCalcuate.ZeroYZ).Last());
+        DrawHelpLine(CalculateArcArray(velocity, angle, TypeArcPointCalcuate.XYZero).Last());
+        DrawHelpLine(CalculateArcArray(velocity, angle, TypeArcPointCalcuate.XYZ).Last());
+       // Debug.Log("max distance z point = " + CalculateArcArray(velocity, angle).LastOrDefault().z.ToString("n2"));
     }
 
     private void DrawHelpLine(Vector3 endPosition)
@@ -65,7 +73,7 @@ public class ThrowBall_Line : MonoBehaviour
         Debug.DrawLine(Vector3.zero, endPosition, Color.green, 2.5f);
     }
 
-    public Vector3[] CalculateArcArray(float velocity, float angle)
+    public Vector3[] CalculateArcArray(float velocity, float angle, TypeArcPointCalcuate typeArcPointCalcuate)
     {
         radianAngle = Mathf.Deg2Rad * angle;
         float maxDistance = (velocity * velocity * Mathf.Sin(2 * radianAngle)) / g;
@@ -74,15 +82,31 @@ public class ThrowBall_Line : MonoBehaviour
         for (int i = 0; i <= resolution; i++)
         {
             float t = (float)i / (float)resolution;
-            arcArray[i] = CalculateArcPoint(t, maxDistance);
+            arcArray[i] = CalculateArcPointXYZ(t, maxDistance,typeArcPointCalcuate);
         }
         return arcArray;
     }
-    private Vector3 CalculateArcPoint(float t, float maxDistance)
-    {
-        float z = t * maxDistance;
-        float y = z * Mathf.Tan(radianAngle) - ((g * z * z) / (2 * velocity * velocity * Mathf.Cos(radianAngle) * Mathf.Cos(radianAngle)));       
-        return new Vector3(0,y,z);
-    }
 
+    private Vector3 CalculateArcPointXYZ(float t, float maxDistance, TypeArcPointCalcuate typeArcPointCalcuate)
+    {
+        float s = t * maxDistance;
+        float y = s * Mathf.Tan(radianAngle) - ((g * s * s) / (2 * velocity * velocity * Mathf.Cos(radianAngle) * Mathf.Cos(radianAngle)));
+        float x = 0;
+        float z = 0;
+        if (TypeArcPointCalcuate.XYZ == typeArcPointCalcuate)
+        {
+            x = s * Mathf.Sqrt(s);
+            z = x;
+        }
+        if (TypeArcPointCalcuate.XYZero == typeArcPointCalcuate)
+        {
+            x = s;
+        }
+        if (TypeArcPointCalcuate.ZeroYZ == typeArcPointCalcuate)
+        {
+            z = s;
+        }
+        return new Vector3(x, y, z);
+    }
 }
+
