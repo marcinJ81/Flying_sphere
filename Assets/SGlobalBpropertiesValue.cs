@@ -11,12 +11,15 @@ namespace Assets
     /// </summary>
     public sealed class SGlobalBpropertiesValue
     {
-        static  SGlobalBpropertiesValue()
+         static  SGlobalBpropertiesValue()
         {
             MIN_ANGLE = 1f;
             MAX_ANGLE = 89f;
             MIN_VELOCITY = 1f;
             MAX_VELOCITY = 100f;
+            MAX_SWING_ANGLE = 189f;
+            MIN_SWING_ANGLE = 1f;
+            START_SWING_ANGLE = 90f;
         }
         private SGlobalBpropertiesValue() { }
 
@@ -24,5 +27,8 @@ namespace Assets
         public static float MAX_ANGLE { get; private set; }
         public static float MIN_VELOCITY { get; private set; }
         public static float MAX_VELOCITY { get; private set; }
+        public static float MAX_SWING_ANGLE { get; private set; }
+        public static float MIN_SWING_ANGLE { get; private set; }
+        public static float START_SWING_ANGLE { get; private set; }
     }
 }

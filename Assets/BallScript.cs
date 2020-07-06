@@ -19,13 +19,14 @@ public class BallScript : MonoBehaviour
     {
         ballGameObject = GameObject.Find("Sphere");
         ballStartPosition = ballGameObject.transform.position;
-        ballFly = new Balistic_Calculation(new DistanceAndTime(), 20);
-        
+        ballFly = new Balistic_Calculation(new DistanceAndTime(), 40);
+       
     }
     void Start()
     {
         rb = ballGameObject.GetComponent<Rigidbody>();
         targetScript = FindObjectOfType(typeof(Target_script)) as Target_script;
+
     }
 
     // Update is called once per frame

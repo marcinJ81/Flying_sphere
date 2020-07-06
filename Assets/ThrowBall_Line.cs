@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -33,15 +34,15 @@ public class ThrowBall_Line : MonoBehaviour
     void Update()
     {
         OnValidate(targetScript.velocity, targetScript.angle);
+        
     }
 
-    private void OnValidate()
+    private void DrawHelpLine(Vector3 endPosition)
     {
-        if (lr != null && Application.isPlaying)
-        {
-            RenderArc();
-        }
+        Debug.DrawLine(Vector3.zero, endPosition, Color.green, 2.5f);
     }
+    private void OnValidate()
+    { }
 
     private void OnValidate(float velocity, float angle)
     {
@@ -57,30 +58,14 @@ public class ThrowBall_Line : MonoBehaviour
     {
         lr.positionCount = resolution + 1;
         lr.SetPositions(CalculateArcArray(velocity,angle));
+        DrawHelpLine(CalculateArcArray(velocity, angle).Last());
+        Debug.Log("max distance z point = " + CalculateArcArray(velocity, angle).LastOrDefault().z.ToString("n2"));
     }
-    private void RenderArc()
-    {
-        lr.positionCount = resolution + 1;
-        lr.SetPositions(CalculateArcArray());
-    }
-    private Vector3[] CalculateArcArray()
-    {
-        Vector3[] arcArray = new Vector3[resolution + 1];
-
-        radianAngle = Mathf.Deg2Rad * angle;
-        float maxDistance = (velocity * velocity * Mathf.Sin(2 * radianAngle)) / g;
-        for (int i = 0; i <= resolution; i++)
-        {
-            float t = (float)i / (float)resolution;
-            arcArray[i] = CalculateArcPoint(t, maxDistance);
-        }
-        return arcArray;
-    }
+    
     public Vector3[] CalculateArcArray(float velocity, float angle)
     {
         radianAngle = Mathf.Deg2Rad * angle;
         float maxDistance = (velocity * velocity * Mathf.Sin(2 * radianAngle)) / g;
-
 
         Vector3[] arcArray = new Vector3[resolution + 1];
         for (int i = 0; i <= resolution; i++)
