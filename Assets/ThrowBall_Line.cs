@@ -37,10 +37,7 @@ public class ThrowBall_Line : MonoBehaviour
         
     }
 
-    private void DrawHelpLine(Vector3 endPosition)
-    {
-        Debug.DrawLine(Vector3.zero, endPosition, Color.green, 2.5f);
-    }
+   
     private void OnValidate()
     { }
 
@@ -61,7 +58,13 @@ public class ThrowBall_Line : MonoBehaviour
         DrawHelpLine(CalculateArcArray(velocity, angle).Last());
         Debug.Log("max distance z point = " + CalculateArcArray(velocity, angle).LastOrDefault().z.ToString("n2"));
     }
-    
+
+    private void DrawHelpLine(Vector3 endPosition)
+    {
+
+        Debug.DrawLine(Vector3.zero, endPosition, Color.green, 2.5f);
+    }
+
     public Vector3[] CalculateArcArray(float velocity, float angle)
     {
         radianAngle = Mathf.Deg2Rad * angle;
@@ -77,9 +80,9 @@ public class ThrowBall_Line : MonoBehaviour
     }
     private Vector3 CalculateArcPoint(float t, float maxDistance)
     {
-        float x = t * maxDistance;
-        float y = x * Mathf.Tan(radianAngle) - ((g * x * x) / (2 * velocity * velocity * Mathf.Cos(radianAngle) * Mathf.Cos(radianAngle)));       
-        return new Vector3(0,y,x);
+        float z = t * maxDistance;
+        float y = z * Mathf.Tan(radianAngle) - ((g * z * z) / (2 * velocity * velocity * Mathf.Cos(radianAngle) * Mathf.Cos(radianAngle)));       
+        return new Vector3(0,y,z);
     }
 
 }
