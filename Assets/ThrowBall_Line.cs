@@ -63,7 +63,10 @@ public class ThrowBall_Line : MonoBehaviour
         lr.SetPositions(CalculateArcArray(velocity,angle,TypeArcPointCalcuate.ZeroYZ));
         DrawHelpLine(CalculateArcArray(velocity, angle, TypeArcPointCalcuate.ZeroYZ).Last());
         DrawHelpLine(CalculateArcArray(velocity, angle, TypeArcPointCalcuate.XYZero).Last());
-        DrawHelpLine(CalculateArcArray(velocity, angle, TypeArcPointCalcuate.XYZ).Last());
+        DrawHelpLine(CalculateArcArray(velocity, angle,10, TypeArcPointCalcuate.XYZ).Last());
+        //draw circle
+      
+           CreatePoints(CalculateArcArray(velocity, angle, TypeArcPointCalcuate.ZeroYZ).Last());
        // Debug.Log("max distance z point = " + CalculateArcArray(velocity, angle).LastOrDefault().z.ToString("n2"));
     }
 
@@ -72,7 +75,6 @@ public class ThrowBall_Line : MonoBehaviour
 
         Debug.DrawLine(Vector3.zero, endPosition, Color.green, 2.5f);
     }
-
     public Vector3[] CalculateArcArray(float velocity, float angle, TypeArcPointCalcuate typeArcPointCalcuate)
     {
         radianAngle = Mathf.Deg2Rad * angle;
@@ -82,7 +84,20 @@ public class ThrowBall_Line : MonoBehaviour
         for (int i = 0; i <= resolution; i++)
         {
             float t = (float)i / (float)resolution;
-            arcArray[i] = CalculateArcPointXYZ(t, maxDistance,typeArcPointCalcuate);
+            arcArray[i] = CalculateArcPointXYZ(t, maxDistance, typeArcPointCalcuate);
+        }
+        return arcArray;
+    }
+    public Vector3[] CalculateArcArray(float velocity, float angle, float sideTriangle, TypeArcPointCalcuate typeArcPointCalcuate)
+    {
+        radianAngle = Mathf.Deg2Rad * angle;
+        float maxDistance = (velocity * velocity * Mathf.Sin(2 * radianAngle)) / g;
+
+        Vector3[] arcArray = new Vector3[resolution + 1];
+        for (int i = 0; i <= resolution; i++)
+        {
+            float t = (float)i / (float)resolution;
+            arcArray[i] = CalculateArcPointXYZ(t, maxDistance,sideTriangle,typeArcPointCalcuate);
         }
         return arcArray;
     }
@@ -92,11 +107,11 @@ public class ThrowBall_Line : MonoBehaviour
         float s = t * maxDistance;
         float y = s * Mathf.Tan(radianAngle) - ((g * s * s) / (2 * velocity * velocity * Mathf.Cos(radianAngle) * Mathf.Cos(radianAngle)));
         float x = 0;
-        float z = 0;
+        float z = 5;
         if (TypeArcPointCalcuate.XYZ == typeArcPointCalcuate)
         {
-            x = s * Mathf.Sqrt(s);
-            z = x;
+            x = Mathf.Sqrt((s * s) +  (z*z));
+            //c = SQRT((a*a)+(b*b)) pitagoras    
         }
         if (TypeArcPointCalcuate.XYZero == typeArcPointCalcuate)
         {
@@ -107,6 +122,52 @@ public class ThrowBall_Line : MonoBehaviour
             z = s;
         }
         return new Vector3(x, y, z);
+    }
+    private Vector3 CalculateArcPointXYZ(float t, float maxDistance,float sideTriangle ,TypeArcPointCalcuate typeArcPointCalcuate)
+    {
+        float s = t * maxDistance;
+        float y = s * Mathf.Tan(radianAngle) - ((g * s * s) / (2 * velocity * velocity * Mathf.Cos(radianAngle) * Mathf.Cos(radianAngle)));
+        float x = sideTriangle;
+        float z = s;
+        if (TypeArcPointCalcuate.XYZ == typeArcPointCalcuate)
+        {
+            //x = Mathf.Sqrt((s * s) + (z * z));
+           //c = SQRT((a*a)+(b*b)) pitagoras    
+        }
+        if (TypeArcPointCalcuate.XYZero == typeArcPointCalcuate)
+        {
+            x = s;
+        }
+        if (TypeArcPointCalcuate.ZeroYZ == typeArcPointCalcuate)
+        {
+            z = s;
+        }
+        return new Vector3(x, y, z);
+    }
+
+    private void CreatePoints( Vector3 maxDistance)
+    {
+        if (maxDistance.z > 0)
+        {
+            int segments = 100;
+            float xradius = 5;
+            float yradius = 5;
+            float x;
+            float y;
+            float z;
+
+            float angle = 10f;
+
+            for (int i = 0; i < (segments + 1); i++)
+            {
+                x = Mathf.Sin(Mathf.Deg2Rad * angle) * xradius;
+                y = Mathf.Cos(Mathf.Deg2Rad * angle) * yradius;
+
+                Vector3 endPoint = new Vector3(x, 0, y);
+                Debug.DrawLine(maxDistance, endPoint, Color.red, 2.5f);
+                angle += (360f / segments);
+            }
+        }
     }
 }
 
