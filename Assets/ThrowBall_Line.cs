@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -149,21 +150,20 @@ public class ThrowBall_Line : MonoBehaviour
     {
         if (maxDistance.z > 0)
         {
-            int segments = 100;
-            float xradius = 5;
-            float yradius = 5;
+            int segments = 50;
+           
             float x;
-            float y;
             float z;
 
-            float angle = 10f;
+
+            float angle = 1f;
 
             for (int i = 0; i < (segments + 1); i++)
             {
-                x = Mathf.Sin(Mathf.Deg2Rad * angle) * xradius;
-                y = Mathf.Cos(Mathf.Deg2Rad * angle) * yradius;
+                z = Mathf.Sin(SAngleToRadian.AngleToRadian(angle)) * maxDistance.z;
+                x = Mathf.Cos(SAngleToRadian.AngleToRadian(angle)) * maxDistance.z;
 
-                Vector3 endPoint = new Vector3(x, 0, y);
+                Vector3 endPoint = new Vector3(x, 0, z);
                 Debug.DrawLine(maxDistance, endPoint, Color.red, 2.5f);
                 angle += (360f / segments);
             }

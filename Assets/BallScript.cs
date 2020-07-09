@@ -35,7 +35,6 @@ public class BallScript : MonoBehaviour
       
         if (Input.GetKey(KeyCode.Space))
         {
-           
             rb.MovePosition(ballFly.CalculateArcOneVector(Time.deltaTime, targetScript.angle,targetScript.velocity));
           
         }
