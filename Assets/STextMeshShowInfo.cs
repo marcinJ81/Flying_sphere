@@ -1,21 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets;
 
-public static class STextMeshShowInfo 
+public static class STextMeshShowInfo
 {
-    public static TextMesh ShowSpeedDistanceMassAboutBall(TextMesh textmesh, float angle, float velocity)
+    public static void ShowAngleAndVelocity(TextMesh textmesh, float angle, float velocity)
     {
         textmesh.text = "left decreases(arrow) || right increases; Angle : " + angle.ToString("n2");
-        textmesh.text += "\ndown decreases(arrow) || up increases; Velocity : " + velocity.ToString("n2");
-
-        return textmesh;
+        textmesh.text += "\ndown decreases(arrow) || up increases; Velocity : " + velocity.ToString("n2");     
     }
 
-    public static TextMesh ShowRotationAngle(TextMesh textmesh, float anglerotation)
+    public static void ShowRotationAngle(TextMesh textmesh, float angleRotation)
     {
-        textmesh.text = "A (Key) - decreases || D (Key) - increases; Angle : " + anglerotation.ToString("n2");
-        
-        return textmesh;
+        textmesh.text = "A (Key) - decreases || D (Key) - increases; Rotation Angle : " + angleRotation.ToString("n2");  
     }
 
 }

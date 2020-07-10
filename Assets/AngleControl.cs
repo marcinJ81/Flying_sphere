@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets;
+using System.Linq;
 
 public class AngleControl : MonoBehaviour
 {
     public float rotationAngle { get; private set; }
     public GameObject InfoTextObject;
+    private StrategyForChangeAngleAndVelocity strategy;
     // Use this for initialization
+    private void Awake()
+    {
+        strategy = new StrategyForChangeAngleAndVelocity();
+    }
     void Start()
     {
         
@@ -17,12 +24,9 @@ public class AngleControl : MonoBehaviour
         KeyCode key = SKeyDetecion.KeysDown().Any() ? SKeyDetecion.KeysDown().First() : KeyCode.AltGr;
         if ((key == KeyCode.RightArrow || key == KeyCode.LeftArrow))
         {
-            this.angle = strategy.StrategyTochange(key, this.angle);
+            this.rotationAngle = strategy.StrategyTochange(key, this.rotationAngle);
         }
-        if (key == KeyCode.DownArrow || key == KeyCode.UpArrow)
-        {
-            this.velocity = strategy.StrategyTochange(key, this.velocity);
-        }
-        ShowSpeedDistanceMassAboutBall(InfoTextObject.GetComponent(typeof(TextMesh)) as TextMesh);
+        //Textmesh not exist in unity interface
+        //STextMeshShowInfo.ShowRotationAngle(InfoTextObject.GetComponent(typeof(TextMesh)) as TextMesh,this.rotationAngle);
     }
 }

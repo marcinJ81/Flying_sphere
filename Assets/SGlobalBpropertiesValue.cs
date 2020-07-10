@@ -20,6 +20,8 @@ namespace Assets
             MAX_SWING_ANGLE = 189f;
             MIN_SWING_ANGLE = 1f;
             START_SWING_ANGLE = 90f;
+            MIN_ANGLE_ROTATION = 0F;
+            MAX_ANGLE_ROTATION = 180F;
         }
         private SGlobalBpropertiesValue() { }
 
@@ -30,5 +32,8 @@ namespace Assets
         public static float MAX_SWING_ANGLE { get; private set; }
         public static float MIN_SWING_ANGLE { get; private set; }
         public static float START_SWING_ANGLE { get; private set; }
+        public static float MIN_ANGLE_ROTATION { get; private set; }
+        public static float MAX_ANGLE_ROTATION { get; private set; }
+
     }
 }

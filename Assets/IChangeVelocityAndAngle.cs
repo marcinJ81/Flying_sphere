@@ -8,18 +8,13 @@ using System.Reflection;
 
 namespace Assets
 {
-    public enum InfoChangeAngleORVelocity
-    {
-        angle_change,
-        velocity_change,
-        no_change
-    }
-    
-   public interface IChangeVelocityAndAngle
+ 
+    public interface IChangeVelocityAndAngle
     {
        float  WhenKeyPressChangeValueAngle(KeyCode key, float angle);
        float  WhenKeyPressChangeValueVelocity(KeyCode key, float velocity);
-       float WhenKeyPressChangeValue(KeyCode key, float valueToChange); 
+       float WhenKeyPressChangeValue(KeyCode key, float valueToChange);
+       float WhenKeyPressChangeValueAngleRotation(KeyCode key, float angleRotation);
     }
 
     public class ChangeValueVelocityAndAngle : IChangeVelocityAndAngle
@@ -59,6 +54,30 @@ namespace Assets
                 }
             }
             return angle;
+        }
+
+        public float WhenKeyPressChangeValueAngleRotation(KeyCode key, float angleRotation)
+        {
+            if (Input.GetKey(KeyCode.D))
+            {
+
+                if (angleRotation < SGlobalBpropertiesValue.MAX_ANGLE_ROTATION)
+                {
+                    angleRotation += 1;
+                    return angleRotation;
+                }
+            }
+            //decrease angle
+            if (Input.GetKey(KeyCode.A))
+            {
+
+                if (angleRotation > SGlobalBpropertiesValue.MIN_ANGLE_ROTATION)
+                {
+                    angleRotation -= 1;
+                    return angleRotation;
+                }
+            }
+            return angleRotation;
         }
 
         public float WhenKeyPressChangeValueVelocity(KeyCode key,  float velocity)

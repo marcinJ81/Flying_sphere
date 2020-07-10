@@ -70,9 +70,11 @@
     <Compile Include="Assets\FileIO.cs" />
     <Compile Include="Assets\ICalculateDistanceAnTime.cs" />
     <Compile Include="Assets\IChangeVelocityAndAngle.cs" />
+    <Compile Include="Assets\IControlObjectWithSpecificKeys.cs" />
+    <Compile Include="Assets\SDependencyContainer.cs" />
     <Compile Include="Assets\SGlobalBpropertiesValue.cs" />
     <Compile Include="Assets\SKeyDetection.cs" />
-    <Compile Include="Assets\STextMeshShowInfo .cs" />
+    <Compile Include="Assets\STextMeshShowInfo.cs" />
     <Compile Include="Assets\S_Velocty_Angle_AngToRad.cs" />
     <Compile Include="Assets\Target_script.cs" />
     <Compile Include="Assets\Test_ChangeValue.cs" />

@@ -10,12 +10,10 @@ public class Target_script : MonoBehaviour
     public float angle { get; private set; }
     public float velocity { get; private set; }
     public GameObject InfoTextObject;
-    // private IChangeVelocityAndAngle changeAngleVelocity;
     private StrategyForChangeAngleAndVelocity strategy;
     private TextMesh textMesh;
     private void Awake()
     {
-        //changeAngleVelocity = new ChangeValueVelocityAndAngle();
         strategy = new StrategyForChangeAngleAndVelocity(); 
     }
     void Start()
@@ -38,14 +36,7 @@ public class Target_script : MonoBehaviour
         {
             this.velocity = strategy.StrategyTochange(key, this.velocity);
         }
-        ShowSpeedDistanceMassAboutBall(InfoTextObject.GetComponent(typeof(TextMesh)) as TextMesh);
+       STextMeshShowInfo.ShowAngleAndVelocity(InfoTextObject.GetComponent(typeof(TextMesh)) as TextMesh,this.angle,this.velocity);
     }
-
-    private void ShowSpeedDistanceMassAboutBall(TextMesh textmesh)
-    {
-        textmesh.text = "left decreases(arrow) right increases; Angle : " + angle.ToString("n2");
-        textmesh.text += "\ndown decreases(arrow) up increases; Velocity : " + velocity.ToString("n2");
-    }
-     
 
 }
