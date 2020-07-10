@@ -66,14 +66,12 @@ public class ThrowBall_Line : MonoBehaviour
         DrawHelpLine(CalculateArcArray(velocity, angle, TypeArcPointCalcuate.XYZero).Last());
         DrawHelpLine(CalculateArcArray(velocity, angle,10, TypeArcPointCalcuate.XYZ).Last());
         //draw circle
-      
            CreatePoints(CalculateArcArray(velocity, angle, TypeArcPointCalcuate.ZeroYZ).Last());
        // Debug.Log("max distance z point = " + CalculateArcArray(velocity, angle).LastOrDefault().z.ToString("n2"));
     }
 
     private void DrawHelpLine(Vector3 endPosition)
     {
-
         Debug.DrawLine(Vector3.zero, endPosition, Color.green, 2.5f);
     }
     public Vector3[] CalculateArcArray(float velocity, float angle, TypeArcPointCalcuate typeArcPointCalcuate)
